@@ -1,0 +1,25 @@
+@startuml
+!define RECTANGLE class
+
+RECTANGLE "CM API #1" as CM1
+RECTANGLE "CM API #2" as CM2
+RECTANGLE "CM API #3" as CM3
+RECTANGLE "CM API #4" as CM4
+
+RECTANGLE "Azure Function\n(Python, Timer)" as FunctionApp
+RECTANGLE "Azure SQL DB\n(NCS System)" as SQLDB
+RECTANGLE "Spring Boot REST API\n(Container App)" as SpringBootAPI
+RECTANGLE "NCS UI" as NCSUI
+
+CM1 --> FunctionApp : Pull data
+CM2 --> FunctionApp : Pull data
+CM3 --> FunctionApp : Pull data
+CM4 --> FunctionApp : Pull data
+
+FunctionApp --> SQLDB : Store business_pay\nand business_receive
+
+SpringBootAPI --> SQLDB : Fetch business_pay\nand business_receive
+
+NCSUI --> SpringBootAPI : Fetch data for UI
+
+@enduml
